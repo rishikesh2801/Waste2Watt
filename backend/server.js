@@ -38,26 +38,35 @@ async function startServer() {
         await mongoose.connect(process.env.MONGO_URI);
         console.log('MongoDB connected successfully');
 
-        // Auto-Cleanup: Delete resolved complaints older than 24 hours (runs every hour)
+        // Auto-Cleanup: Delete resolved complaints older than 24 hours
         const Complaint = require('./models/Complaint');
+
         setInterval(async () => {
             try {
-                const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                const twentyFourHoursAgo = new Date(
+                    Date.now() - 24 * 60 * 60 * 1000
+                );
+
                 const result = await Complaint.deleteMany({
                     status: 'Resolved',
                     resolvedAt: { $lt: twentyFourHoursAgo }
                 });
+
                 if (result.deletedCount > 0) {
-                    console.log(`[Auto-Cleanup] Permanently deleted ${result.deletedCount} resolved complaints older than 24 hours.`);
+                    console.log(
+                        `[Auto-Cleanup] Permanently deleted ${result.deletedCount} resolved complaints older than 24 hours.`
+                    );
                 }
             } catch (err) {
-                console.error("Auto-cleanup error:", err);
+                console.error('Auto-cleanup error:', err);
             }
-        }, 60 * 60 * 1000); // 1 hour
+        }, 60 * 60 * 1000);
 
-        app.listen(PORT, () => {
+        // Start server
+        app.listen(PORT, '0.0.0.0', () => {
             console.log(`Server running on port ${PORT}`);
         });
+
     } catch (err) {
         console.error('MongoDB connection error:', err);
         process.exit(1);
