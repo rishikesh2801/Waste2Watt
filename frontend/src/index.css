@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-slate-800 antialiased font-sans min-h-screen bg-slate-50;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  #root {
+    @apply min-h-screen w-full;
+  }
+}
+
+@layer components {
+  /* Ultra Premium Animated Buttons */
+  .btn-primary {
+    @apply relative overflow-hidden bg-gradient-to-tr from-municipal-blue to-blue-600 text-white px-6 py-3 rounded-xl font-bold shadow-[0_8px_20px_-6px_rgba(22,49,92,0.8)] hover:shadow-[0_15px_30px_-6px_rgba(22,49,92,0.9)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300;
+  }
+
+  .btn-primary::after {
+    content: '';
+    @apply absolute top-0 left-[-100%] w-[50%] h-full bg-white/20 skew-x-[-20deg] transition-all duration-700 ease-out;
+  }
+
+  .btn-primary:hover::after {
+    left: 150%;
+  }
+  
+  .btn-outline {
+    @apply relative overflow-hidden border-2 border-municipal-blue text-municipal-blue bg-white px-6 py-3 rounded-xl font-bold shadow-sm hover:bg-municipal-blue/5 hover:shadow-md transition-all duration-300;
+  }
+
+  /* High-contrast solid cards for white theme */
+  .card-3d {
+    @apply bg-white rounded-2xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-100 transition-all hover:shadow-[0_15px_40px_rgba(0,0,0,0.12)] hover:-translate-y-0.5;
+  }
+  
+  /* Inputs that look soft and modern on white */
+  .input-3d {
+    @apply w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 shadow-none focus:outline-none focus:ring-2 focus:ring-municipal-blue/60 focus:bg-white text-slate-800 transition-all;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Marquee animation for news ticker */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
